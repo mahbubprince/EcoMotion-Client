@@ -2,10 +2,12 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { motion } from "framer-motion";
+// import { useNavigate } from "react-router"; 
 
 const CreateEvent = () => {
   const [eventDate, setEventDate] = useState(null);
   const [error, setError] = useState("");
+  // const navigate=useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,15 +50,10 @@ const CreateEvent = () => {
 
     console.log("Event Created:", newEvent);
 
-    // TODO: POST to backend
-    // fetch("http://localhost:3000/events", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newEvent),
-    // });
-
+    
     alert("Event created successfully!");
-    // form.reset();
+    form.reset();
+    // navigate='/upcoming'
     setEventDate(null);
   };
 
@@ -155,6 +152,7 @@ const CreateEvent = () => {
 
           {/* Submit */}
           <motion.button
+          // onClick={() => navigate("/upcoming")}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="submit"

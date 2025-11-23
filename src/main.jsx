@@ -11,6 +11,10 @@ import Root from "./layout/Root.jsx";
 import CreateEvent from "./pages/CreateEvent.jsx";
 import Error from "./pages/Error.jsx";
 import EventDetails from "./pages/EventDetailes.jsx";
+import Upcoming from "./pages/upcoming.jsx";
+import Manage from "./pages/Manage.jsx";
+import Joined from "./pages/Joined.jsx";
+import EditEvent from "./pages/EditEvent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +24,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:3000/events"),
+        loader:()=>fetch("http://localhost:3000/latest")
       },
       {
         path: "/register",
@@ -37,6 +41,23 @@ const router = createBrowserRouter([
       {
         path: "/createEvent",
         element: <CreateEvent></CreateEvent>,
+      },
+      {
+        path: "/manage",
+        element: <Manage></Manage>,
+      },
+      {
+        path: "/joined",
+        element: <Joined></Joined>,
+      },
+      {
+        path: "/edit-event/:id",
+        element: <EditEvent></EditEvent>,
+      },
+      {
+        path: "/upcoming",
+        element: <Upcoming></Upcoming>,
+        loader: () => fetch("http://localhost:3000/events"),
       },
     ],
   },
