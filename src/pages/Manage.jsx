@@ -100,14 +100,16 @@
 
 
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { Edit, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../provider/AuthContext";
 
 const ManageEvents = () => {
   const [events, setEvents] = useState([]);
+  const {user}=useContext(AuthContext)
 
   useEffect(() => {
     fetch("http://localhost:3000/events")
@@ -126,7 +128,8 @@ const ManageEvents = () => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/events/${id}`, {
+        // `http://localhost:3000/events/${id}`
+        fetch(`http://localhost:3000/joined?email=${user.email}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

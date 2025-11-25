@@ -1,17 +1,43 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
+import { AuthContext } from "../provider/AuthContext";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
+  const { signInWithEmailAndPasswordFunc } = useContext(AuthContext);
+  const navitage = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    signInWithEmailAndPasswordFunc(email, password)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful!",
+          text: `Welcome back, ${res.user.displayName || "User"}!`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        navitage("/");
+      })
+      .catch((err) => {
+        console.error(err);
+
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed!",
+          text: err.message.replace("Firebase: ", ""),
+          confirmButtonColor: "#e53e3e",
+        });
+      });
 
     if (!email || !password) {
       setError("Email and password are required!");
@@ -19,7 +45,6 @@ export default function Login() {
     }
 
     setError("");
-    alert("Login successful!");
   };
 
   return (
@@ -28,7 +53,7 @@ export default function Login() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="bg-white/40 backdrop-blur-xl border border-white/30 shadow-2xl p-8 rounded-3xl w-full max-w-md bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200"
+        className="bg-white/40 backdrop-blur-xl border border-white/30 shadow-2xl p-8 rounded-3xl w-full max-w-md bg-linear-to-br from-blue-200 via-purple-200 to-pink-200"
       >
         <motion.h2
           initial={{ opacity: 0, y: -20 }}

@@ -10,7 +10,7 @@ const Upcoming = () => {
     <div>
       {/* Upcoming Events Preview */}
       <section className="py-16 bg-gray-100 px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 mt-12">
           Upcoming Events
         </h2>{" "}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">

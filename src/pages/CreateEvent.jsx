@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { motion } from "framer-motion";
-// import { useNavigate } from "react-router"; 
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router"; 
+import { AuthContext } from "../provider/AuthContext";
 
 const CreateEvent = () => {
   const [eventDate, setEventDate] = useState(null);
   const [error, setError] = useState("");
-  // const navigate=useNavigate()
+  const navigate=useNavigate()
+  const {user}=useContext(AuthContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +22,7 @@ const CreateEvent = () => {
     const eventType = form.eventType.value;
     const thumbnail = form.thumbnail.value;
     const location = form.location.value;
+    
 
     if (!eventDate) {
       setError("Please select a valid future date.");
@@ -32,6 +36,7 @@ const CreateEvent = () => {
       thumbnail,
       location,
       date: eventDate,
+      createdByEmail:user?.email
     };
 
     fetch("http://localhost:3000/events", {
@@ -43,17 +48,24 @@ const CreateEvent = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+    navigate('/upcoming')
+
       })
       .catch((error) => {
         console.log(error);
       });
 
-    console.log("Event Created:", newEvent);
+    // console.log("Event Created:", newEvent);
 
     
-    alert("Event created successfully!");
+    Swal.fire({
+  icon: "success",
+  title: "Event Created!",
+  text: "Your event has been created successfully!",
+  showConfirmButton: false,
+  timer: 2000,
+});
     form.reset();
-    // navigate='/upcoming'
     setEventDate(null);
   };
 

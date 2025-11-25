@@ -1,11 +1,53 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import AuthProvider from "../provider/AuthProvider";
+import { AuthContext } from "../provider/AuthContext";
+import Swal from "sweetalert2";
 
-const Navbar = ({ user, handleLogout }) => {
+const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  // console.log(user);
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You’ll be logged out of your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Logged Out",
+              text: "You have been logged out successfully!",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+
+            // Optional: redirect after logout
+            navigate("/login");
+          })
+          .catch((err) => {
+            console.error(err);
+            Swal.fire({
+              icon: "error",
+              title: "Logout Failed",
+              text: err.message,
+            });
+          });
+      }
+    });
+  };
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -51,16 +93,15 @@ const Navbar = ({ user, handleLogout }) => {
               </Link>
             ))}
             {/* user && */}
-            {
-              userMenu.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="font-medium text-gray-700 hover:text-green-600 transition-all"
-                >
-                  {item.name}
-                </Link>
-              ))}
+            {userMenu.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="font-medium text-gray-700 hover:text-green-600 transition-all"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
 
           {/* Right side */}

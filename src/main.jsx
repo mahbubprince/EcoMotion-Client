@@ -15,6 +15,8 @@ import Upcoming from "./pages/upcoming.jsx";
 import Manage from "./pages/Manage.jsx";
 import Joined from "./pages/Joined.jsx";
 import EditEvent from "./pages/EditEvent.jsx";
+import AuthProvider from "./provider/AuthProvider.jsx";
+import PrivateRoute from "./route/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,19 +42,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/createEvent",
-        element: <CreateEvent></CreateEvent>,
+        element: <PrivateRoute><CreateEvent></CreateEvent></PrivateRoute>,
       },
       {
         path: "/manage",
-        element: <Manage></Manage>,
+        element: <PrivateRoute><Manage></Manage></PrivateRoute>,
       },
       {
         path: "/joined",
-        element: <Joined></Joined>,
+        element: <PrivateRoute><Joined></Joined></PrivateRoute>,
       },
       {
         path: "/edit-event/:id",
-        element: <EditEvent></EditEvent>,
+        element: <PrivateRoute><EditEvent></EditEvent></PrivateRoute>,
       },
       {
         path: "/upcoming",
@@ -69,6 +71,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider><RouterProvider router={router} /></AuthProvider>
   </StrictMode>
 );
