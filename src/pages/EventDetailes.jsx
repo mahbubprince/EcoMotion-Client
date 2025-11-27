@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { AuthContext } from "../provider/AuthContext";
 
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
+  const [joining, setJoining] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3000/events/${id}`)
@@ -19,6 +23,53 @@ const EventDetails = () => {
         setLoading(false);
       });
   }, [id]);
+
+  const handleJoinEvent = () => {
+    if (!user?.email) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "Please log in to join this event.",
+        // confirmButtonText: "Go to Login",
+      });
+      return;
+    }
+
+    setJoining(true);
+
+    fetch(`http://localhost:3000/join/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: user.email }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Joined Successfully!",
+            text: "You’ve been added to this event.",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        } else {
+          Swal.fire({
+            icon: "info",
+            title: "Already Joined",
+            text: "You’ve already joined this event!",
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Could not join the event. Try again later.",
+        });
+      })
+      .finally(() => setJoining(false));
+  };
 
   if (loading) {
     return (
@@ -77,6 +128,8 @@ const EventDetails = () => {
 
           <motion.button
             whileHover={{ scale: 1.03 }}
+            onClick={handleJoinEvent}
+            disabled={joining}
             whileTap={{ scale: 0.97 }}
             className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg font-semibold"
           >

@@ -93,7 +93,7 @@ const Navbar = () => {
               </Link>
             ))}
             {/* user && */}
-            {userMenu.map((item) => (
+            {/* {userMenu.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
@@ -101,7 +101,7 @@ const Navbar = () => {
               >
                 {item.name}
               </Link>
-            ))}
+            ))} */}
           </div>
 
           {/* Right side */}
@@ -117,6 +117,7 @@ const Navbar = () => {
               <div className="relative">
                 <motion.img
                   src={user.photoURL}
+                  title={user.displayName}
                   alt={user.displayName}
                   className="w-11 h-11 rounded-full cursor-pointer border-2 border-green-400 hover:border-green-600 shadow-md"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -141,7 +142,9 @@ const Navbar = () => {
                         >
                           {item.name}
                         </Link>
-                      ))}
+                        
+                      ))
+                      }
                       <button
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 rounded-md transition-all"

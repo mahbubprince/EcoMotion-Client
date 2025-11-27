@@ -1,11 +1,26 @@
-import React from "react";
+import React, {  useState } from "react";
 import { useLoaderData } from "react-router";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
+// import { AuthContext } from "../provider/AuthContext";
 
 const Upcoming = () => {
   const data = useLoaderData();
-  console.log(data);
+  const [searchData, setSearchData] = useState(data);
+  // const {loading}=useContext(AuthContext)
+  const handelSearch = (e) => {
+    e.preventDefault();
+    const search = e.target.search.value;
+    fetch(`http://localhost:3000/search?search=${search}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setSearchData(data);
+      });
+
+    // console.log(search);
+  };
+  // console.log(data);
   return (
     <div>
       {/* Upcoming Events Preview */}
@@ -13,8 +28,33 @@ const Upcoming = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 mt-12">
           Upcoming Events
         </h2>{" "}
+        <form
+          onSubmit={handelSearch}
+          className="flex justify-center gap-2 my-5 mb-10 "
+        >
+          <label className="input rounded-full">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input type="search" name="search"  placeholder="Search" />
+          </label>
+          <button className="btn btn-accent rounded-full ">Search</button>
+        </form>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          {data?.map((event) => (
+          {searchData?.map((event) => (
             <motion.div
               key={event._id}
               initial={{ opacity: 0, y: 20 }}
