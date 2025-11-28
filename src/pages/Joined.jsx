@@ -1,7 +1,9 @@
+
 // import React, { useContext, useEffect, useState } from "react";
 // import { AuthContext } from "../provider/AuthContext";
 // import { motion } from "framer-motion";
 // import Swal from "sweetalert2";
+// import { Link } from "react-router";
 
 // const Joined = () => {
 //   const { user } = useContext(AuthContext);
@@ -27,17 +29,47 @@
 //     }
 //   }, [user]);
 
-//   if (loading) {
-//     return (
-//       <div className="flex items-center justify-center h-screen">
-//         <motion.div
-//           animate={{ rotate: 360 }}
-//           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-//           className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full"
-//         ></motion.div>
-//       </div>
-//     );
-//   }
+//   const handleDelete = (id) => {
+//     Swal.fire({
+//       title: "Are you sure?",
+//       text: "You will be removed from this event.",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonText: "Yes, Leave",
+//       cancelButtonText: "Cancel",
+//       confirmButtonColor: "#e74c3c",
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         fetch(`http://localhost:3000/events/${id}`, {
+//           method: "DELETE",
+//         })
+//           .then((res) => res.json())
+//           .then((data) => {
+//             if (data.success) {
+//               Swal.fire("Removed!", "You left the event successfully.", "success");
+//               setJoinedEvents(joinedEvents.filter((e) => e._id !== id));
+//             } else {
+//               Swal.fire("Error", "Failed to remove event.", "error");
+//             }
+//           })
+//           .catch(() => {
+//             Swal.fire("Error", "Could not connect to server.", "error");
+//           });
+//       }
+//     });
+//   };
+
+//   // if (loading) {
+//   //   return (
+//   //     <div className="flex items-center justify-center h-screen">
+//   //       <motion.div
+//   //         animate={{ rotate: 360 }}
+//   //         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+//   //         className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full"
+//   //       ></motion.div>
+//   //     </div>
+//   //   );
+//   // }
 
 //   if (joinedEvents.length === 0) {
 //     return (
@@ -87,7 +119,7 @@
 //               <p className="text-gray-700 text-sm mb-3">
 //                 {event.description?.slice(0, 100)}...
 //               </p>
-//               <div className="flex justify-between text-sm text-gray-600">
+//               <div className="flex justify-between text-sm text-gray-600 mb-4">
 //                 <p>
 //                   <span className="font-semibold">Date:</span>{" "}
 //                   {event.date || "TBD"}
@@ -96,6 +128,27 @@
 //                   <span className="font-semibold">Location:</span>{" "}
 //                   {event.location || "Unknown"}
 //                 </p>
+//               </div>
+
+//               {/* Action Buttons */}
+//               <div className="flex justify-between items-center">
+//                 {/* Edit only if createdByEmail matches user */}
+//                 {event.createdByEmail === user.email ? (
+//                   <Link
+//                     to={`/edit-event/${event._id}`}
+//                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+//                   >
+//                     Edit
+//                   </Link>
+//                 ) : (
+//                   <button
+//                     onClick={() => handleDelete(event._id)}
+//                     className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
+//                   >
+//                     Leave
+//                   </button>
+//                 )
+//                 }
 //               </div>
 //             </div>
 //           </motion.div>
@@ -106,37 +159,6 @@
 // };
 
 // export default Joined;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -170,48 +192,6 @@ const Joined = () => {
         });
     }
   }, [user]);
-
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You will be removed from this event.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, Leave",
-      cancelButtonText: "Cancel",
-      confirmButtonColor: "#e74c3c",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:3000/events/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              Swal.fire("Removed!", "You left the event successfully.", "success");
-              setJoinedEvents(joinedEvents.filter((e) => e._id !== id));
-            } else {
-              Swal.fire("Error", "Failed to remove event.", "error");
-            }
-          })
-          .catch(() => {
-            Swal.fire("Error", "Could not connect to server.", "error");
-          });
-      }
-    });
-  };
-
-  // if (loading) {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen">
-  //       <motion.div
-  //         animate={{ rotate: 360 }}
-  //         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-  //         className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full"
-  //       ></motion.div>
-  //     </div>
-  //   );
-  // }
 
   if (joinedEvents.length === 0) {
     return (
@@ -272,25 +252,17 @@ const Joined = () => {
                 </p>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex justify-between items-center">
-                {/* Edit only if createdByEmail matches user */}
-                {event.createdByEmail === user.email ? (
+              {/* Only show Edit if user created it */}
+              {/* {event.createdByEmail === user.email && (
+                <div className="flex justify-end">
                   <Link
                     to={`/edit-event/${event._id}`}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
                   >
                     Edit
                   </Link>
-                ) : (
-                  <button
-                    onClick={() => handleDelete(event._id)}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
-                  >
-                    Leave
-                  </button>
-                )}
-              </div>
+                </div>
+              )} */}
             </div>
           </motion.div>
         ))}

@@ -1,38 +1,49 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-// import { AuthContext } from "../provider/AuthContext";
 
 const Upcoming = () => {
   const data = useLoaderData();
   const [searchData, setSearchData] = useState(data);
-  // const {loading}=useContext(AuthContext)
+  const [eventType, setEventType] = useState("all");
+
   const handelSearch = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
-    fetch(`http://localhost:3000/search?search=${search}`)
+    fetch(
+      `http://localhost:3000/search?search=${search}&eventType=${eventType}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setSearchData(data);
       });
-
-    // console.log(search);
   };
-  // console.log(data);
+
+  const handelFilter = (e) => {
+    const type = e.target.value;
+    setEventType(type);
+    fetch(`http://localhost:3000/search?eventType=${type}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSearchData(data);
+      });
+  };
+
   return (
     <div>
-      {/* Upcoming Events Preview */}
-      <section className="py-16 bg-gray-100 px-4">
+      <section className="py-16 px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 mt-12">
           Upcoming Events
-        </h2>{" "}
+        </h2>
+
+        {/* 🔍 Search + Filter */}
         <form
           onSubmit={handelSearch}
-          className="flex justify-center gap-2 my-5 mb-10 "
+          className="flex flex-col md:flex-row justify-center items-center gap-3 mb-10"
         >
-          <label className="input rounded-full">
+          {/* Search */}
+          <label className="input rounded-full flex items-center gap-2">
             <svg
               className="h-[1em] opacity-50"
               xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +60,32 @@ const Upcoming = () => {
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input type="search" name="search"  placeholder="Search" />
+            <input
+              type="search"
+              name="search"
+              placeholder="Search"
+              className="flex-1 outline-none bg-transparent"
+            />
           </label>
-          <button className="btn btn-accent rounded-full ">Search</button>
+
+          {/* Filter Dropdown */}
+          <select
+            value={eventType}
+            onChange={handelFilter}
+            className="select select-bordered rounded-full"
+          >
+            <option value="all">All Event Types</option>
+            <option value="Cleanup">Cleanup</option>
+            <option value="Plantation">Plantation</option>
+            <option value="Donation">Donation</option>
+            <option value="Blood Donation">Blood Donation</option>
+            <option value="Awareness Campaign">Awareness Campaign</option>
+          </select>
+
+          <button className="btn btn-accent rounded-full">Search</button>
         </form>
+
+        {/* Events Grid */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {searchData?.map((event) => (
             <motion.div
@@ -61,16 +94,19 @@ const Upcoming = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all"
+              className="rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all"
             >
               <img
-                src={event.thumbnail}
+                src={
+                  event.thumbnail ||
+                  "https://i.ibb.co/yV1CgL9/eco-placeholder.jpg"
+                }
                 alt={event.title}
                 className="h-48 w-full object-cover"
               />
               <div className="p-4">
                 <h3 className="font-bold text-xl mb-1">{event.title}</h3>
-                <p className="text-gray-600 mb-2">{event.location}</p>
+                <p className="text-gray-500 mb-2">{event.location}</p>
                 <p className="text-green-600 font-semibold mb-2">
                   {event.eventType}
                 </p>

@@ -4,6 +4,7 @@ import React from "react";
 import { useLoaderData } from "react-router";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
+// import ThemeToggle from "../componants/ThemeToggle";
 
 const features = [
   {
@@ -38,6 +39,7 @@ const Home = () => {
 
   return (
     <div className="mt-16">
+      
       {/* =============================== */}
       {/* 🌟 HERO / BANNER SECTION */}
       {/* =============================== */}
@@ -93,7 +95,7 @@ const Home = () => {
       {/* =============================== */}
       {/* 🌱 FEATURE SECTION */}
       {/* =============================== */}
-      <section className="py-20  text-gray-800 px-6">
+      <section className="py-20   px-6">
         <h2 className="text-4xl font-bold text-center mb-16">Why EcoMotion?</h2>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -104,7 +106,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
-              className="bg-green-50 border border-green-100 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all flex flex-col items-center text-center"
+              className=" border border-green-100 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all flex flex-col items-center text-center"
             >
               <div className="text-6xl mb-4">{feature.icon}</div>
               <h3 className="text-2xl font-semibold mb-2">{feature.title}</h3>
@@ -117,7 +119,7 @@ const Home = () => {
       {/* =============================== */}
       {/* 📸 GALLERY SECTION */}
       {/* =============================== */}
-      <section className="py-20 bg-gray-100 px-6">
+      <section className="py-20  px-6">
         <h2 className="text-4xl font-bold text-center mb-14">
           Moments from Our Community
         </h2>
@@ -139,7 +141,7 @@ const Home = () => {
       </section>
 
       {/* latest Events Preview */}
-      <section className="py-16 bg-gray-100 px-4">
+      <section className="py-16  px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Latest Events
         </h2>
@@ -151,7 +153,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all"
+              className=" rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all"
             >
               <img
                 src={event.thumbnail}
@@ -160,7 +162,7 @@ const Home = () => {
               />
               <div className="p-4">
                 <h3 className="font-bold text-xl mb-1">{event.title}</h3>
-                <p className="text-gray-600 mb-2">{event.location}</p>
+                <p className="text-gray-400 mb-2">{event.location}</p>
                 <p className="text-green-600 font-semibold mb-2">
                   {event.eventType}
                 </p>

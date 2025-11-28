@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import AuthProvider from "../provider/AuthProvider";
 import { AuthContext } from "../provider/AuthContext";
 import Swal from "sweetalert2";
 
@@ -11,8 +10,20 @@ const Navbar = () => {
   const location = useLocation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  // console.log(user);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "night");
 
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // ✅ Theme Toggle
+  const handelTheme = (checked) => {
+    setTheme(checked ? "night" : "winter");
+  };
+
+  // ✅ Logout Handler
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -33,12 +44,9 @@ const Navbar = () => {
               showConfirmButton: false,
               timer: 2000,
             });
-
-            // Optional: redirect after logout
             navigate("/login");
           })
           .catch((err) => {
-            console.error(err);
             Swal.fire({
               icon: "error",
               title: "Logout Failed",
@@ -49,6 +57,7 @@ const Navbar = () => {
     });
   };
 
+  // ✅ Menu items
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "Upcoming Events", path: "/upcoming" },
@@ -61,12 +70,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/40 backdrop-blur-lg shadow-lg border-b border-green-200">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg shadow-lg border-b border-green-200 bg-white/70 dark:bg-gray-900/70 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl md:text-3xl font-extrabold text-green-600 hover:text-green-700 transition-all">
+            <span className="text-2xl md:text-3xl font-extrabold text-green-700 dark:text-green-400 transition-all">
               🌿 EcoMotion
             </span>
           </Link>
@@ -77,14 +86,14 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`relative font-medium text-gray-700 hover:text-green-600 transition-all ${
-                  location.pathname === item.path ? "text-green-600" : ""
+                className={`nav-link ${
+                  location.pathname === item.path ? "active-link" : ""
                 }`}
               >
                 {item.name}
                 <motion.span
                   layoutId="underline"
-                  className={`absolute left-0 -bottom-1 h-0.5 bg-green-600`}
+                  className="absolute left-0 -bottom-0.5 h-0.5 bg-green-600 rounded-full"
                   animate={{
                     width: location.pathname === item.path ? "100%" : "0%",
                   }}
@@ -92,16 +101,6 @@ const Navbar = () => {
                 />
               </Link>
             ))}
-            {/* user && */}
-            {/* {userMenu.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="font-medium text-gray-700 hover:text-green-600 transition-all"
-              >
-                {item.name}
-              </Link>
-            ))} */}
           </div>
 
           {/* Right side */}
@@ -129,25 +128,36 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 border border-green-200"
+                      className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-2 border border-green-200 dark:border-gray-700"
                     >
-                      <p className="px-4 py-2 text-gray-700 font-semibold border-b border-green-100">
+                      <p className="px-4 py-2 text-gray-700 dark:text-gray-200 font-semibold border-b border-green-100 dark:border-gray-700">
                         {user.displayName}
                       </p>
                       {userMenu.map((item) => (
                         <Link
                           key={item.name}
                           to={item.path}
-                          className="block px-4 py-2 text-gray-700 hover:bg-green-100 rounded-md transition-all"
+                          className={`block px-4 py-2 rounded-md transition-all ${
+                            location.pathname === item.path
+                              ? "active-link"
+                              : "text-gray-700 hover:bg-green-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                          }`}
                         >
                           {item.name}
                         </Link>
-                        
-                      ))
-                      }
+                      ))}
+                      <div className="flex justify-between px-4 py-2 text-gray-700 dark:text-gray-200">
+                        <p>Theme</p>
+                        <input
+                          onChange={(e) => handelTheme(e.target.checked)}
+                          type="checkbox"
+                          defaultChecked
+                          className="toggle"
+                        />
+                      </div>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 rounded-md transition-all"
+                        className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-800 rounded-md transition-all"
                       >
                         Logout
                       </button>
@@ -161,7 +171,7 @@ const Navbar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="text-gray-700 focus:outline-none text-2xl"
+                className="text-gray-700 dark:text-gray-200 focus:outline-none text-2xl"
               >
                 {menuOpen ? "✕" : "☰"}
               </button>
@@ -177,13 +187,18 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/90 backdrop-blur-lg px-6 py-4 border-t border-green-200 space-y-2"
+            className="md:hidden bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg px-6 py-4 border-t border-green-200 dark:border-gray-700 space-y-2"
           >
             {menuItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className="block py-2 font-medium text-gray-700 hover:text-green-600 transition-all"
+                onClick={() => setMenuOpen(false)}
+                className={`block py-2 rounded-md transition-all ${
+                  location.pathname === item.path
+                    ? "active-link"
+                    : "text-gray-700 hover:text-green-600 dark:text-gray-200 dark:hover:text-green-400"
+                }`}
               >
                 {item.name}
               </Link>
@@ -193,7 +208,12 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="block py-2 font-medium text-gray-700 hover:text-green-600 transition-all"
+                  onClick={() => setMenuOpen(false)}
+                  className={`block py-2 rounded-md transition-all ${
+                    location.pathname === item.path
+                      ? "active-link"
+                      : "text-gray-700 hover:text-green-600 dark:text-gray-200 dark:hover:text-green-400"
+                  }`}
                 >
                   {item.name}
                 </Link>
