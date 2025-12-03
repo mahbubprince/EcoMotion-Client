@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { FaFacebook, FaTwitter, FaInstagram, FaLeaf } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -25,7 +26,7 @@ const Footer = () => {
           {/* Social Icons */}
           <div className="flex gap-4 text-xl">
             <a href="#" className="hover:text-green-300 transition"><FaFacebook /></a>
-            <a href="#" className="hover:text-green-300 transition"><FaTwitter /></a>
+            <a href="#" className="hover:text-green-300 transition"><FaXTwitter /></a>
             <a href="#" className="hover:text-green-300 transition"><FaInstagram /></a>
           </div>
         </motion.div>
