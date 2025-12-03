@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -29,6 +30,9 @@ const AuthProvider = ({ children }) => {
   const signInWithPopupFunc = () => {
     return signInWithPopup(auth, googleProvider);
   };
+  const sendPasswordResetEmailFunc = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
 
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, (currentUser) => {
@@ -37,7 +41,6 @@ const AuthProvider = ({ children }) => {
     });
     return () => {
       unsubcribe();
-      
     };
   }, []);
 
@@ -45,12 +48,10 @@ const AuthProvider = ({ children }) => {
     setloading(false);
     return signOut(auth);
   };
-const updateProfilefunc = (displayName, photoURL) => {
+  const updateProfilefunc = (displayName, photoURL) => {
     return updateProfile(auth.currentUser, {
       displayName,
-      photoURL:
-        photoURL ||
-        "https://i.ibb.co/2NsfGNv/default-avatar.png",
+      photoURL: photoURL || "https://i.ibb.co/2NsfGNv/default-avatar.png",
     });
   };
 
@@ -63,7 +64,8 @@ const updateProfilefunc = (displayName, photoURL) => {
     signInWithEmailAndPasswordFunc,
     signInWithPopupFunc,
     logout,
-    updateProfilefunc
+    updateProfilefunc,
+    sendPasswordResetEmailFunc,
   };
   return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
 };
