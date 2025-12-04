@@ -43,7 +43,7 @@ export default function Login() {
       });
   };
 
-  // ✅ Email Login
+  //  Email Login
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -76,7 +76,7 @@ export default function Login() {
       });
   };
 
-  // ✅ Forgot Password Handler
+  
   const handleForgotPassword = async () => {
     const { value: email } = await Swal.fire({
       title: "Reset your password",

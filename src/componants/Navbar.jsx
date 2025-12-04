@@ -227,15 +227,6 @@
 
 // export default Navbar;
 
-
-
-
-
-
-
-
-
-
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
@@ -373,12 +364,15 @@ const Navbar = () => {
                   className="flex items-center gap-2 focus:outline-none"
                 >
                   <motion.img
-                    src={user.photoURL}
-                    title={user.displayName}
-                    alt={user.displayName}
-                    className="w-11 h-11 rounded-full cursor-pointer border-2 border-green-400 hover:border-green-600 shadow-md"
-                    whileHover={{ scale: 1.1 }}
+                    src={
+                      user?.photoURL ||
+                      "https://i.ibb.co/2NsfGNv/default-avatar.png"
+                    }
+                    title={user?.displayName || "User"}
+                    alt={user?.displayName || "User"}
+                    className="w-11 h-11 rounded-full border-2 border-green-400"
                   />
+
                   <motion.span
                     animate={{ rotate: dropdownOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
