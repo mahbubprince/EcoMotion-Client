@@ -20,12 +20,12 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // ✅ Toggle theme
+  //  Toggle theme
   const handelTheme = (checked) => {
     setTheme(checked ? "night" : "winter");
   };
 
-  // ✅ Logout Handler
+  //  Logout Handler
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -59,7 +59,7 @@ const Navbar = () => {
     });
   };
 
-  // ✅ Close dropdown when clicking outside
+  //   Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -70,7 +70,7 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ✅ Menu items
+  //  Menu items
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "Upcoming Events", path: "/upcoming" },
@@ -86,14 +86,14 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg shadow-lg border-b border-green-200 bg-white/70 dark:bg-gray-900/70 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* 🌿 Logo */}
+          {/*  Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl md:text-3xl font-extrabold text-green-700 dark:text-green-400 transition-all">
               🌿 EcoMotion
             </span>
           </Link>
 
-          {/* 💻 Desktop Menu */}
+          {/*  Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             {menuItems.map((item) => (
               <Link
@@ -119,7 +119,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* 🧍 Right side */}
+          {/*  Right side */}
           <div className="flex items-center space-x-4">
             {!user ? (
               <Link
@@ -219,7 +219,7 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* 📱 Mobile Menu Button */}
+            {/*  Mobile Menu Button */}
             <div className="md:hidden">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -232,7 +232,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* 📱 Mobile Menu */}
+      {/*  Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
