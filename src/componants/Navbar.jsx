@@ -12,7 +12,7 @@ const Navbar = () => {
   const location = useLocation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "night");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "winter");
 
   useEffect(() => {
     const html = document.querySelector("html");

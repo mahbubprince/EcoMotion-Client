@@ -1,36 +1,8 @@
-/* @import "tailwindcss";
-@plugin "daisyui" {
-  themes: winter --default, night --prefersdark;
-}
-
-@custom-variant dark (&:where([data-theme=night], [data-theme=night] *)) */
-
-
-
-
-
-/* ===== Navbar Link Styles ===== */
-/* .nav-link {
-  @apply relative font-medium px-3 py-1 rounded-lg text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-300;
-}
-
-.active-link {
-  @apply text-green-700 bg-green-100 shadow-sm font-semibold;
-} */
-
-
-
-
-
-
-
-
-
 
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: winter --default, night --prefersdark;
+  themes: winter --default, night ;
 }
 
 

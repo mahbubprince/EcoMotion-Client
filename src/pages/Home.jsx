@@ -1,10 +1,7 @@
-
-
 import React from "react";
 import { useLoaderData } from "react-router";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-// import ThemeToggle from "../componants/ThemeToggle";
 
 const features = [
   {
@@ -24,14 +21,31 @@ const features = [
   },
 ];
 
+
+
+
 const galleryImages = [
+  // Tree Plantation Event 🌳
+  "https://images.unsplash.com/photo-1523978591478-c753949ff840?auto=format&fit=crop&w=1200&q=80",
+
+  // Beach or Road Cleaning Drive 🧹
+  "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+
+  // Group of Volunteers Working 🤝
+  "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1200&q=80",
+
+  // Recycling & Environmental Awareness ♻️
   "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-  "https://images.unsplash.com/photo-1543351611-58f69d4f6caa",
-  "https://images.unsplash.com/photo-1536608856998-8d8d73a6dc83",
-  "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
-  "https://images.unsplash.com/photo-1501004318641-b39e6451bec6",
-  "https://images.unsplash.com/photo-1523978591478-c753949ff840",
+
+  // Community Cleanup Event 🧤
+"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+
+
+// Volunteers Collecting Trash 🗑️
+"https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=1200&q=80",
+
 ];
+
 
 const Home = () => {
   const {result} = useLoaderData();
