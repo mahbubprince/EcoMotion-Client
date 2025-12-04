@@ -231,7 +231,6 @@ const Upcoming = () => {
             </svg>
           </div>
 
-          {/* Filter Dropdown */}
           <select
             value={eventType}
             onChange={handelFilter}
@@ -245,7 +244,6 @@ const Upcoming = () => {
             <option value="Awareness Campaign">Awareness Campaign</option>
           </select>
 
-          {/* Search Button */}
           <button
             type="submit"
             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg transition-all"
@@ -254,7 +252,7 @@ const Upcoming = () => {
           </button>
         </motion.form>
 
-        {/* 🌀 Loading State */}
+        
         {loading && (
           <div className="flex justify-center my-12">
             <motion.div
