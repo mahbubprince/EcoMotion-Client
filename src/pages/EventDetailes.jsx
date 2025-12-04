@@ -12,7 +12,7 @@ const EventDetails = () => {
   const [joining, setJoining] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/events/${id}`)
+    fetch(`https://ecomotion-server.vercel.app/events/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setEvent(data.result);
@@ -37,7 +37,7 @@ const EventDetails = () => {
 
     setJoining(true);
 
-    fetch(`http://localhost:3000/join/${id}`, {
+    fetch(`https://ecomotion-server.vercel.app/join/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: user.email }),

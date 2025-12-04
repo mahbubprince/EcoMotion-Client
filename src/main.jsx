@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-        loader:()=>fetch("http://localhost:3000/latest")
+        loader:()=>fetch("https://ecomotion-server.vercel.app/latest")
       },
       {
         path: "/register",
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       {
         path: "/upcoming",
         element: <Upcoming></Upcoming>,
-        loader: () => fetch("http://localhost:3000/events"),
+        loader: () => fetch("https://ecomotion-server.vercel.app/events"),
       },
     ],
   },

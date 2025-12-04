@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -44,7 +43,8 @@ const AuthProvider = ({ children }) => {
 
   //  Update displayName & photo
   const updateProfilefunc = (displayName, photoURL) => {
-    const defaultPhoto = "https://i.ibb.co/2NsfGNv/default-avatar.png";
+    const defaultPhoto =
+      "https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png";
     return updateProfile(auth.currentUser, {
       displayName,
       photoURL: photoURL || defaultPhoto,
@@ -79,11 +79,7 @@ const AuthProvider = ({ children }) => {
     sendPasswordResetEmailFunc,
   };
 
-  return (
-    <AuthContext.Provider value={info}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

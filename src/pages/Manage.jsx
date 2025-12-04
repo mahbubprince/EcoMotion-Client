@@ -11,7 +11,7 @@
 //   const {user}=useContext(AuthContext)
 
 //   // useEffect(() => {
-//   //   fetch("http://localhost:3000/events")
+//   //   fetch("https://ecomotion-server.vercel.app/events")
 //   //     .then((res) => res.json())
 //   //     .then((data) => setEvents(data));
 //   // }, []);
@@ -19,7 +19,7 @@
 
 // useEffect(() => {
 //   if (user?.email) {
-//     fetch(`http://localhost:3000/manage?email=${user.email}`)
+//     fetch(`https://ecomotion-server.vercel.app/manage?email=${user.email}`)
 //       .then((res) => res.json())
 //       .then((data) => setEvents(data));
 //   }
@@ -39,8 +39,8 @@
 //   //     confirmButtonText: "Delete",
 //   //   }).then((result) => {
 //   //     if (result.isConfirmed) {
-//   //       // `http://localhost:3000/events/${id}`
-//   //       fetch(`http://localhost:3000/joined?email=${user.email}`, {
+//   //       // `https://ecomotion-server.vercel.app/events/${id}`
+//   //       fetch(`https://ecomotion-server.vercel.app/joined?email=${user.email}`, {
 //   //         method: "DELETE",
 //   //       })
 //   //         .then((res) => res.json())
@@ -66,7 +66,7 @@
 //     confirmButtonText: "Delete",
 //   }).then((result) => {
 //     if (result.isConfirmed) {
-//       fetch(`http://localhost:3000/events/${id}`, {
+//       fetch(`https://ecomotion-server.vercel.app/events/${id}`, {
 //         method: "DELETE",
 //       })
 //         .then((res) => res.json())
@@ -168,7 +168,7 @@ const Manage = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/manage?email=${user.email}`)
+      fetch(`https://ecomotion-server.vercel.app/manage?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => setEvents(data));
     }
@@ -185,7 +185,7 @@ const Manage = () => {
       confirmButtonColor: "#e63946",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/events/${id}`, { method: "DELETE" })
+        fetch(`https://ecomotion-server.vercel.app/events/${id}`, { method: "DELETE" })
           .then((res) => res.json())
           .then((data) => {
             if (data.success) {

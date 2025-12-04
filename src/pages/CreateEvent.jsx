@@ -39,7 +39,7 @@ const CreateEvent = () => {
       createdByEmail:user?.email
     };
 
-    fetch("http://localhost:3000/events", {
+    fetch("https://ecomotion-server.vercel.app/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
 

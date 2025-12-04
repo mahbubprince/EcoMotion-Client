@@ -12,7 +12,7 @@
 
 //   useEffect(() => {
 //     if (user?.email) {
-//       fetch(`http://localhost:3000/joined?email=${user.email}`)
+//       fetch(`https://ecomotion-server.vercel.app/joined?email=${user.email}`)
 //         .then((res) => res.json())
 //         .then((data) => {
 //           setJoinedEvents(data);
@@ -40,7 +40,7 @@
 //       confirmButtonColor: "#e74c3c",
 //     }).then((result) => {
 //       if (result.isConfirmed) {
-//         fetch(`http://localhost:3000/events/${id}`, {
+//         fetch(`https://ecomotion-server.vercel.app/events/${id}`, {
 //           method: "DELETE",
 //         })
 //           .then((res) => res.json())
@@ -176,7 +176,7 @@ const Joined = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/joined?email=${user.email}`)
+      fetch(`https://ecomotion-server.vercel.app/joined?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setJoinedEvents(data);

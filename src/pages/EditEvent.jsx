@@ -19,7 +19,7 @@ const EditEvent = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/events/${id}`)
+    fetch(`https://ecomotion-server.vercel.app/events/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setEvent(data.result);
@@ -31,7 +31,7 @@ const EditEvent = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/events/${id}`,
+    fetch(`https://ecomotion-server.vercel.app/events/${id}`,
          {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
