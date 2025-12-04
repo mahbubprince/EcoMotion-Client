@@ -47,7 +47,8 @@ const CreateEvent = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
+        
     navigate('/upcoming')
 
       })
@@ -71,6 +72,7 @@ const CreateEvent = () => {
 
   return (
     <div className="pt-20 min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex justify-center p-4">
+      <title>Create-Event</title>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

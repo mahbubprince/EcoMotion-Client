@@ -97,6 +97,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
+      <title>Register</title>
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

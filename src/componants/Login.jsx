@@ -124,6 +124,7 @@ export default function Login() {
 
   return (
     <div className="h-screen flex items-center justify-center p-4">
+      <title>Login</title>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

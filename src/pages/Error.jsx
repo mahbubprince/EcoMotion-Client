@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 const Error = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-green-100 via-blue-100 to-purple-200 px-4 text-center">
+      <title>Error</title>
       
       <motion.h1
         initial={{ scale: 0 }}

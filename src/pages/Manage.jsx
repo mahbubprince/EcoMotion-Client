@@ -201,6 +201,7 @@ const Manage = () => {
 
   return (
     <div className="pt-24 px-5 max-w-6xl mx-auto mb-24">
+      <title>Manage</title>
       <h1 className="text-4xl font-bold text-center mb-10 text-gray-800">
         Manage Events
       </h1>

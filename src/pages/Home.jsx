@@ -35,10 +35,11 @@ const galleryImages = [
 
 const Home = () => {
   const {result} = useLoaderData();
-  console.log(result)
+  // console.log(result)
 
   return (
     <div className="mt-16">
+      {/* <title>Home</title> */}
       
       {/* =============================== */}
       {/* 🌟 HERO / BANNER SECTION */}

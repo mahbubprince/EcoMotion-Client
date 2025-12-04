@@ -89,6 +89,7 @@ const EventDetails = () => {
 
   return (
     <div className="pt-20 min-h-screen bg-gradient-to-br from-green-50 to-green-100 p-5 flex justify-center">
+      <title>Event-detailes</title>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -48,6 +48,7 @@ const Upcoming = () => {
 
   return (
     <div>
+      <title>UpComing-Events</title>
       <section className="py-16 px-4">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}

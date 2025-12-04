@@ -40,7 +40,7 @@ const EditEvent = () => {
 )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if (data.modifiedCount > 0) {
           Swal.fire({
             icon: "success",
@@ -62,6 +62,7 @@ const EditEvent = () => {
 
   return (
     <div className="pt-24 px-5 max-w-3xl mx-auto">
+      <title>Edit-Event</title>
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
